@@ -1,3 +1,8 @@
+#' An alternative to upset plots
+#' @param x A list
+#' @param nsets Maximum number of sets to be shown.
+#' @return Whatever cowplot::plot_grid returns
+#' @export
 agitated <- function(x, nsets = 20) {
   assert_is(x, "list")  
   if (is.null(names(x))) {
@@ -22,10 +27,10 @@ agitated <- function(x, nsets = 20) {
   not_empty <- intersections > 0
   intersections <- intersections[not_empty]
   grids <- grids[, not_empty]
-  # order <- order(apply(grids, 2, sum))
   order <- order(intersections, decreasing = TRUE)
   intersections <- intersections[order]
   grids <- grids[, order]
+  nsets <- min(nsets, length(intersections))
   grids <- grids[, seq_len(nsets)]
   intersections <- intersections[seq_len(nsets)]
   mdf <- reshape2::melt(grids)
