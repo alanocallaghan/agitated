@@ -36,7 +36,7 @@ agitated <- function(x, nsets = 20) {
   mdf <- reshape2::melt(grids)
   mdf$Var1 <- factor(mdf$Var1, levels = names(x))
   mdf$Var2 <- factor(mdf$Var2)
-  dots <- ggplot(mdf, aes(x = Var2, y = Var1, color = value)) + 
+  dots <- ggplot(mdf, aes_string(x = "Var2", y = "Var1", color = "value")) + 
     geom_point(na.rm = TRUE) + 
     scale_color_manual(
       guide = FALSE,
@@ -74,12 +74,6 @@ agitated <- function(x, nsets = 20) {
     axis = "ltbr")
 }
 
-#' @importFrom ggplot2 ggplot aes
-#'                     geom_bar geom_point
-#'                     scale_x_discrete scale_x_continuous scale_y_continuous
-#'                     expand_scale
-#'                     theme labs theme_void element_blank
-#' @importFrom cowplot plot_grid
 
 find_intersections <- function(x, grids) {
   sapply(seq_len(ncol(grids)), function(i) {
