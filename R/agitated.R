@@ -22,7 +22,8 @@ agitated <- function(x, nsets = 20) {
   not_empty <- intersections > 0
   intersections <- intersections[not_empty]
   grids <- grids[, not_empty]
-  order <- order(apply(grids, 2, sum))
+  # order <- order(apply(grids, 2, sum))
+  order <- order(intersections, decreasing = TRUE)
   intersections <- intersections[order]
   grids <- grids[, order]
   grids <- grids[, seq_len(nsets)]
@@ -51,10 +52,7 @@ agitated <- function(x, nsets = 20) {
     coord_flip() + 
     labs(x = NULL, y = "Input set size") +
     scale_x_discrete(position = "top") +
-    scale_y_reverse() +
-    theme(
-      axis.ticks.x = element_blank(),
-      axis.text.x = element_blank())
+    scale_y_continuous(trans = "reverse")
   topbar <- ggplot(mapping = aes(x = seq_along(intersections), y = intersections)) + 
     geom_bar(stat = "identity") +
     labs(x = NULL, y = "Set size") +
@@ -64,12 +62,19 @@ agitated <- function(x, nsets = 20) {
       axis.ticks.x = element_blank()
     )
   topcorner <- empty_plot()
-  cowplot::plot_grid(
+  plot_grid(
     topcorner, topbar, sidebar, dots, 
     nrow = 2, 
     align = "hv",
     axis = "ltbr")
 }
+
+#' @importFrom ggplot2 ggplot aes
+#'                     geom_bar geom_point
+#'                     scale_x_discrete scale_x_continuous scale_y_continuous
+#'                     expand_scale
+#'                     theme labs theme_void element_blank
+#' @importFrom cowplot plot_grid
 
 find_intersections <- function(x, grids) {
   sapply(seq_len(ncol(grids)), function(i) {
