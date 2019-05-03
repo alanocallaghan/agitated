@@ -1,4 +1,4 @@
 context("agitated")
-testthat("empty test", {
+test_that("empty test", {
   expect_true(TRUE)
 })
