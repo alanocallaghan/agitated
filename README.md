@@ -23,17 +23,18 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library("here")
-#> here() starts at /home/alan/Documents/github/agitated
 load_all(here())
 #> Loading agitated
-#> 
-#> Attaching package: 'testthat'
-#> The following objects are masked from 'package:devtools':
-#> 
-#>     setup, test_file
 library("agitated")
-## basic example code
+## exclusive intersections
 agitated(example_data())
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
+
+``` r
+## exclusive intersections, higher limit on number of sets (default is 20)
+agitated(example_data(), exclusive = FALSE, nsets = 30)
+```
+
+<img src="man/figures/README-example2-1.png" width="100%" />

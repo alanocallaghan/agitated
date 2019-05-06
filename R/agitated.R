@@ -10,7 +10,7 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
   if (is.null(names(x))) {
     stop("Input must be named")
   }
-  n <- seq(length(x) - 1, 2)
+  n <- seq(length(x), 2)
   x[] <- lapply(x, unique)
   x <- x[order(sapply(x, length))]
   grids <- lapply(n, 
@@ -69,7 +69,7 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
     coord_flip() + 
     labs(x = NULL, y = "Input set size") +
     scale_x_discrete(position = "top") +
-    scale_y_continuous(trans = "reverse")
+    scale_y_continuous(trans = "reverse", breaks = pretty_breaks())
   topbar <- ggplot(mapping = aes(x = seq_along(intersections), y = intersections)) + 
     geom_bar(stat = "identity") +
     labs(x = NULL, y = "Set size") +
@@ -86,6 +86,16 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
     axis = "ltbr")
 }
 
+## From scales
+pretty_breaks <- function (n = 5, ...) {
+    force_all(n)
+    function(x) {
+        breaks <- pretty(x, n, ...)
+        names(breaks) <- attr(breaks, "labels")
+        breaks
+    }
+}
+force_all <- function(...) list(...)
 
 find_intersections <- function(x, grids) {
   lapply(seq_len(ncol(grids)), function(i) {

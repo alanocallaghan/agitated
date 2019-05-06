@@ -38,6 +38,11 @@ This is a basic example which shows you how to solve a common problem:
 library("here")
 load_all(here())
 library("agitated")
-## basic example code
+## exclusive intersections
 agitated(example_data())
+```
+
+```{r example2}
+## exclusive intersections, higher limit on number of sets (default is 20)
+agitated(example_data(), exclusive = FALSE, nsets = 30)
 ```
