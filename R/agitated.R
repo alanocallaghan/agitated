@@ -37,7 +37,8 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
 
   not_empty <- intersections > 0
   intersections <- intersections[not_empty]
-  grids <- grids[, not_empty]
+  ## Test this
+  grids <- grids[, not_empty, drop = FALSE]
   order <- order(intersections, decreasing = TRUE)
   intersections <- intersections[order]
   grids <- grids[, order]
