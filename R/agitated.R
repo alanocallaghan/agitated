@@ -41,9 +41,9 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
   grids <- grids[, not_empty, drop = FALSE]
   order <- order(intersections, decreasing = TRUE)
   intersections <- intersections[order]
-  grids <- grids[, order]
+  grids <- grids[, order, drop = FALSE]
   nsets <- min(nsets, length(intersections))
-  grids <- grids[, seq_len(nsets)]
+  grids <- grids[, seq_len(nsets), drop = FALSE]
   intersections <- intersections[seq_len(nsets)]
   mdf <- reshape2::melt(grids)
   mdf$Var1 <- factor(mdf$Var1, levels = names(x))
