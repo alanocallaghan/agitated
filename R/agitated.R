@@ -69,10 +69,11 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
     coord_flip() + 
     labs(x = NULL, y = "Input set size") +
     scale_x_discrete(position = "top") +
-    scale_y_continuous(trans = "reverse", breaks = pretty_breaks())
+    scale_y_continuous(trans = "reverse", breaks = integer_breaks)
   topbar <- ggplot(mapping = aes(x = seq_along(intersections), y = intersections)) + 
     geom_bar(stat = "identity") +
     labs(x = NULL, y = "Set size") +
+    scale_y_continuous(breaks = integer_breaks) +
     scale_x_discrete(expand = expand_scale(mult = 0, add = 0.5)) +
     theme(
       axis.text.x = element_blank(),
@@ -86,16 +87,14 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
     axis = "ltbr")
 }
 
-## From scales
-pretty_breaks <- function (n = 5, ...) {
-    force_all(n)
-    function(x) {
-        breaks <- pretty(x, n, ...)
-        names(breaks) <- attr(breaks, "labels")
-        breaks
-    }
+
+integer_breaks <- function(x) {
+  seq(
+    from = 0,
+    to = ceiling(max(x)), 
+    by = max(round(max(x) / 5), 1)
+  )
 }
-force_all <- function(...) list(...)
 
 find_intersections <- function(x, grids) {
   lapply(seq_len(ncol(grids)), function(i) {
