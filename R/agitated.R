@@ -1,9 +1,11 @@
 #' An alternative to upset plots
 #' @param x A list
 #' @param nsets Maximum number of sets to be shown.
+#' @param exclusive Should the intersections shown be exclusive? If yes, each 
+#'  entry is shown only once in the top bar plot.
 #' @return Whatever cowplot::plot_grid returns
 #' @export
-agitated <- function(x, nsets = 20) {
+agitated <- function(x, nsets = 20, exclusive = TRUE) {
   assert_is(x, "list")  
   if (is.null(names(x))) {
     stop("Input must be named")
@@ -23,6 +25,15 @@ agitated <- function(x, nsets = 20) {
   grids <- do.call(cbind, grids)
   rownames(grids) <- names(x)
   intersections <- find_intersections(x, grids)
+
+  if (exclusive) {
+    for (i in seq_len(ncol(grids) - 1)) {
+      for (j in (i + 1):ncol(grids)) {
+        intersections[[j]] <- setdiff(intersections[[j]], intersections[[i]])
+      }
+    }
+  }
+  intersections <- vapply(intersections, length, numeric(1))
 
   not_empty <- intersections > 0
   intersections <- intersections[not_empty]
@@ -51,7 +62,7 @@ agitated <- function(x, nsets = 20) {
   sidebar <- ggplot(
       mapping = aes(
         x = factor(names(x), levels = names(x)), 
-        y = sapply(x, length))
+        y = vapply(x, length, numeric(1)))
     ) + 
     geom_bar(stat = "identity") +
     coord_flip() + 
@@ -76,8 +87,8 @@ agitated <- function(x, nsets = 20) {
 
 
 find_intersections <- function(x, grids) {
-  sapply(seq_len(ncol(grids)), function(i) {
-    length(intersection(x, grids[, i]))
+  lapply(seq_len(ncol(grids)), function(i) {
+    intersection(x, grids[, i])
   })
 }
 
