@@ -4,12 +4,18 @@
 \alias{agitated}
 \title{An alternative to upset plots}
 \usage{
-agitated(x, nsets = 20)
+agitated(x, nsets = 20, sort_by = c("size", "degree"),
+  exclusive = TRUE)
 }
 \arguments{
 \item{x}{A list}
 
 \item{nsets}{Maximum number of sets to be shown.}
+
+\item{sort_by}{Sort by "degree" or "size"?}
+
+\item{exclusive}{Should the intersections shown be exclusive? If yes, each 
+entry is shown only once in the top bar plot.}
 }
 \value{
 Whatever cowplot::plot_grid returns
