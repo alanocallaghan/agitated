@@ -13,7 +13,7 @@ agitated <- function(
     exclusive = TRUE) {
 
   sort_by <- match.arg(sort_by)
-  assert_is(x, "list")  
+  assert_that(inherits(x, "list"))
   if (is.null(names(x))) {
     stop("Input must be named")
   }

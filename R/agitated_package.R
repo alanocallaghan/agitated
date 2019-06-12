@@ -7,3 +7,19 @@
 #' @importFrom cowplot plot_grid
 #' @importFrom utils combn
 NULL
+
+
+#' @name agitated
+#' 
+#' @title agitated: "Upset" style plots for visualising set interactions
+#'
+#' @description
+#' A lightweight (and reasonably efficient) alternative to the UpSetR 
+#' package. These plots allow visualisation of an arbitrary number of set 
+#' interactions (see http://doi.org/gbjxr9).
+#' 
+#' @section agitated functions:
+#' agitated: produce an upset plot
+#'
+#' @docType package
+NULL
