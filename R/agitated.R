@@ -3,6 +3,7 @@
 #' @param nsets Maximum number of sets to be shown.
 #' @param exclusive Should the intersections shown be exclusive? If yes, each 
 #'  entry is shown only once in the top bar plot.
+#' @param sort_by Sort by "degree" or "size"?
 #' @return Whatever cowplot::plot_grid returns
 #' @export
 agitated <- function(
@@ -16,9 +17,11 @@ agitated <- function(
   if (is.null(names(x))) {
     stop("Input must be named")
   }
-  n <- seq(length(x), 2)
   x[] <- lapply(x, unique)
+  
+  n <- seq(length(x), 2)
   x <- x[order(sapply(x, length))]
+  mat <- list_to_matrix(x)
   grids <- lapply(n, 
     function(i) {
       grid <- combn(names(x), i)
@@ -31,16 +34,15 @@ agitated <- function(
   grids <- do.call(cbind, grids)
   grids <- cbind(grids, sapply(names(x), function(n) names(x) == n, USE.NAMES=FALSE))
   rownames(grids) <- names(x)
-  intersections <- find_intersections(x, grids)
-
-  if (exclusive) {
-    for (i in seq_len(ncol(grids) - 1)) {
-      for (j in (i + 1):ncol(grids)) {
-        intersections[[j]] <- setdiff(intersections[[j]], intersections[[i]])
-      }
+  intersections <- numeric(ncol(grids))
+  for (i in seq_len(ncol(grids))) {
+    column <- grids[, i]
+    intersects <- apply(mat[, column], 1, all)
+    if (exclusive) {
+      mat[intersects, column] <- FALSE
     }
+    intersections[[i]] <- sum(intersects)
   }
-  intersections <- vapply(intersections, length, numeric(1))
 
   not_empty <- intersections > 0
   intersections <- intersections[not_empty]
@@ -48,12 +50,15 @@ agitated <- function(
   grids <- grids[, not_empty, drop = FALSE]
   if (intersection_order == "frequency") {
     order <- order(intersections, decreasing = TRUE)
-  } else order <- seq_along(intersections)
+  } else {
+    order <- seq_along(intersections)
+  }
   intersections <- intersections[order]
   grids <- grids[, order, drop = FALSE]
   nsets <- min(nsets, length(intersections))
   grids <- grids[, seq_len(nsets), drop = FALSE]
   intersections <- intersections[seq_len(nsets)]
+
   mdf <- reshape2::melt(grids)
   mdf$Var1 <- factor(mdf$Var1, levels = names(x))
   mdf$Var2 <- factor(mdf$Var2)
@@ -68,7 +73,9 @@ agitated <- function(
     scale_x_discrete(expand = expand_scale(mult = 0, add = 1)) +
     theme(
       axis.ticks.x = element_blank(),
-      axis.text.x = element_blank())
+      axis.text.x = element_blank()
+    )
+
   sidebar <- ggplot(
       mapping = aes(
         x = factor(names(x), levels = names(x)), 
@@ -96,6 +103,22 @@ agitated <- function(
 }
 
 
+list_to_matrix <- function(x) {
+  elements <- Reduce(union, x)
+  mat <- matrix(
+    nrow = length(elements), 
+    ncol = length(x),
+    dimnames = list(elements, names(x))
+  )
+  mat[, ] <- sapply(x,
+    function(y) {
+      elements %in% y
+    }
+  )
+
+  mat
+}
+
 integer_breaks <- function(x) {
   seq(
     from = 0,
@@ -104,24 +127,15 @@ integer_breaks <- function(x) {
   )
 }
 
-find_intersections <- function(x, grids) {
-  lapply(seq_len(ncol(grids)), function(i) {
-    intersection(x, grids[, i])
-  })
-}
 
 empty_plot <- function() {
   ggplot() + theme_void()
-}
-
-intersection <- function(x, which) {
-  Reduce(intersect, x[which])
 }
 
 example_data <- function() {
   example <- lapply(1:10, function(i) {
     sample(letters, 10, replace=TRUE)
   })
-  names(example) <- letters[1:10]
+  names(example) <- LETTERS[1:10]
   example
 }
