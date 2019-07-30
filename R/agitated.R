@@ -3,7 +3,7 @@
 #' @param nsets Maximum number of sets to be shown.
 #' @param exclusive Should the intersections shown be exclusive? If yes, each 
 #'  entry is shown only once in the top bar plot.
-#' @param sort_by Sort by "degree" or "size"?
+#' @param intersection_order Sort by "frequency" or "degree"?
 #' @return Whatever cowplot::plot_grid returns
 #' @export
 agitated <- function(
@@ -12,7 +12,9 @@ agitated <- function(
     exclusive = TRUE, 
     intersection_order = c("frequency", "degree")) {
 
-  assert_is(x, "list")  
+  if (!inherits(x, "list")) {
+    stop("Input must be a list of sets.")
+  }
   intersection_order <- match.arg(intersection_order)
   if (is.null(names(x))) {
     stop("Input must be named")
