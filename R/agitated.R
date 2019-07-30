@@ -5,8 +5,14 @@
 #'  entry is shown only once in the top bar plot.
 #' @return Whatever cowplot::plot_grid returns
 #' @export
-agitated <- function(x, nsets = 20, exclusive = TRUE) {
+agitated <- function(
+    x, 
+    nsets = 20, 
+    exclusive = TRUE, 
+    intersection_order = c("frequency", "degree")) {
+
   assert_is(x, "list")  
+  intersection_order <- match.arg(intersection_order)
   if (is.null(names(x))) {
     stop("Input must be named")
   }
@@ -23,6 +29,7 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
     }
   )
   grids <- do.call(cbind, grids)
+  grids <- cbind(grids, sapply(names(x), function(n) names(x) == n, USE.NAMES=FALSE))
   rownames(grids) <- names(x)
   intersections <- find_intersections(x, grids)
 
@@ -39,7 +46,9 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
   intersections <- intersections[not_empty]
   ## Test this
   grids <- grids[, not_empty, drop = FALSE]
-  order <- order(intersections, decreasing = TRUE)
+  if (intersection_order == "frequency") {
+    order <- order(intersections, decreasing = TRUE)
+  } else order <- seq_along(intersections)
   intersections <- intersections[order]
   grids <- grids[, order, drop = FALSE]
   nsets <- min(nsets, length(intersections))
@@ -83,8 +92,7 @@ agitated <- function(x, nsets = 20, exclusive = TRUE) {
   plot_grid(
     topcorner, topbar, sidebar, dots, 
     nrow = 2, 
-    align = "hv",
-    axis = "ltbr")
+    align = "hv")
 }
 
 
