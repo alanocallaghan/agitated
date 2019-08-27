@@ -24,7 +24,7 @@ agitated <- function(
   n <- seq(length(x), 2)
   x <- x[order(sapply(x, length))]
   mat <- list_to_matrix(x)
-  grids <- lapply(n, 
+  grids <- lapply(n,
     function(i) {
       grid <- combn(names(x), i)
       sapply(
@@ -39,7 +39,7 @@ agitated <- function(
   intersections <- numeric(ncol(grids))
   for (i in seq_len(ncol(grids))) {
     column <- grids[, i]
-    intersects <- apply(mat[, column], 1, all)
+    intersects <- apply(mat[, column, drop = FALSE], 1, all)
     if (exclusive) {
       mat[intersects, column] <- FALSE
     }
@@ -64,8 +64,19 @@ agitated <- function(
   mdf <- reshape2::melt(grids)
   mdf$Var1 <- factor(mdf$Var1, levels = names(x))
   mdf$Var2 <- factor(mdf$Var2)
+
+
   dots <- ggplot(mdf, aes_string(x = "Var2", y = "Var1", color = "value")) + 
-    geom_point(na.rm = TRUE) + 
+    geom_point(
+      na.rm = TRUE,
+      size = 2.2,
+      shape = 16
+    ) + 
+    geom_path(
+      data = mdf[mdf$value, ],
+      aes(group = Var2),
+      size = 1.1
+    ) +
     scale_color_manual(
       guide = FALSE,
       limits = c("TRUE", "FALSE"), 
