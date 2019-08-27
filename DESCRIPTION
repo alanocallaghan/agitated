@@ -1,21 +1,22 @@
 Package: agitated
 Title: "Upset" style plots for visualising set interactions
 Version: 0.0.0.9000
-Authors@R: person("Alan", "O'Callaghan", 
+Authors@R: person(
+    "Alan", "O'Callaghan",
     email = "alan.ocallaghan@outlook.com",
     role = c("aut", "cre"))
-Description: A lightweight (and reasonably efficient) alternative to the UpSetR 
-    package. These plots allow visualisation of an arbitrary number of set 
+Description: A lightweight (and reasonably efficient) alternative to the UpSetR
+    package. These plots allow visualisation of an arbitrary number of set
     interactions (see http://doi.org/gbjxr9).
 Depends: R (>= 3.5)
-Imports: 
+Imports:
     reshape2,
     ggplot2,
     cowplot
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Suggests: 
+Suggests:
     testthat,
     here
 RoxygenNote: 6.1.1

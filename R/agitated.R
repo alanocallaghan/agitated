@@ -1,4 +1,4 @@
-#' An alternative to upset plots
+#' An alternative to the UpSetR package for upset plots.
 #' @param x A list
 #' @param nsets Maximum number of sets to be shown.
 #' @param exclusive Should the intersections shown be exclusive? If yes, each 

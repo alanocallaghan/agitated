@@ -23,8 +23,16 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library("here")
+#> here() starts at /home/alan/Documents/github/agitated
+library("devtools")
+#> Loading required package: usethis
 load_all(here())
 #> Loading agitated
+#> 
+#> Attaching package: 'testthat'
+#> The following object is masked from 'package:devtools':
+#> 
+#>     test_file
 library("agitated")
 ## exclusive intersections
 agitated(example_data())
