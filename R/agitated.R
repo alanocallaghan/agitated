@@ -31,7 +31,7 @@ agitated <- function(
     sort_sets = TRUE,
     title = NULL,
     subtitle = NULL
-    ) {
+  ) {
 
   intersection_order <- match.arg(intersection_order)
   if (is.matrix(x)) {
@@ -124,7 +124,7 @@ agitated <- function(
       values = c("black", NA)
     ) +
     labs(x = NULL, y = NULL) +
-    scale_x_discrete(expand = expand_scale(mult = 0, add = 1)) +
+    scale_x_discrete(expand = expansion(mult = 0, add = 1)) +
     theme(
       axis.ticks.x = element_blank(),
       axis.text.x = element_blank()
@@ -147,7 +147,7 @@ agitated <- function(
     geom_bar(stat = "identity") +
     labs(x = NULL, y = "Set size", title = title, subtitle = subtitle) +
     scale_y_continuous(breaks = integer_breaks) +
-    scale_x_discrete(expand = expand_scale(mult = 0, add = 0.5)) +
+    scale_x_discrete(expand = expansion(mult = 0, add = 0.5)) +
     theme(
       axis.text.x = element_blank(),
       axis.ticks.x = element_blank()
