@@ -3,12 +3,17 @@
 \docType{package}
 \name{agitated}
 \alias{agitated}
-\alias{agitated-package}
 \title{An alternative to the UpSetR package for upset plots.}
 \usage{
-agitated(x, nsets = 20, exclusive = TRUE,
-  intersection_order = c("frequency", "degree"), sort_sets = TRUE,
-  title = NULL, subtitle = NULL)
+agitated(
+  x,
+  nsets = 20,
+  exclusive = TRUE,
+  intersection_order = c("frequency", "degree"),
+  sort_sets = TRUE,
+  title = NULL,
+  subtitle = NULL
+)
 }
 \arguments{
 \item{x}{A list or presence/abscence matrix}

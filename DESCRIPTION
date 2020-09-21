@@ -1,6 +1,6 @@
 Package: agitated
 Title: "Upset" style plots for visualising set interactions
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person(
     "Alan", "O'Callaghan",
     email = "alan.ocallaghan@outlook.com",
@@ -19,4 +19,4 @@ LazyData: true
 Suggests:
     testthat,
     here
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
