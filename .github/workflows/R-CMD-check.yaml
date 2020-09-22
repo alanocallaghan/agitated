@@ -75,6 +75,7 @@ jobs:
         run: |
           local_deps <- remotes::local_package_deps(dependencies = TRUE)
           deps <- remotes::dev_package_deps(dependencies = TRUE)
+          install.packages(local_deps, character.only = TRUE)
           remotes::install_cran('rcmdcheck', Ncpu = 2L)
         shell: Rscript {0}
 
