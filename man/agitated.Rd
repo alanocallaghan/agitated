@@ -16,7 +16,7 @@ agitated(
 )
 }
 \arguments{
-\item{x}{A list or presence/abscence matrix}
+\item{x}{A list or presence/absence matrix.}
 
 \item{nsets}{Maximum number of sets to be shown.}
 
