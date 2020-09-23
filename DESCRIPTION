@@ -1,5 +1,5 @@
 Package: agitated
-Title: "Upset" style plots for visualising set interactions
+Title: "UpSet" Style Plots for Visualising Set Interactions
 Version: 0.0.1
 Authors@R: person(
     "Alan", "O'Callaghan",

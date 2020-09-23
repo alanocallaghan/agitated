@@ -19,17 +19,19 @@ agitated(
 \arguments{
 \item{x}{A list or presence/absence matrix.}
 
-\item{nsets}{Maximum number of sets to be shown.}
+\item{nsets}{Numeric scalar specifying the maximum number of sets to be shown.}
 
-\item{exclusive}{Should the intersections shown be exclusive? If yes, each 
-entry is shown only once in the top bar plot.}
+\item{exclusive}{Logical scalar controlling whether the intersections should
+be exclusive.}
 
-\item{intersection_order}{Sort by "frequency" or "degree"?}
+\item{intersection_order}{Character scalar controlling whether sorting of
+intersections is done by \code{"frequency"} (size of intersection) or
+\code{"degree"} (number of intersecting sets).}
 
-\item{sort_sets}{Controls whether the input sets are re-ordered based on 
-descending size.}
+\item{sort_sets}{Logical scalar controlling whether the input sets are 
+re-ordered based on descending size.}
 
-\item{title, subtitle}{Plot title and subtitle.}
+\item{title, subtitle}{Character scalars specifying plot title and subtitle.}
 
 \item{return_plots}{Logical scalar specifying whether the ggplot2 objects
 should be returned directly (\code{TRUE}) or if 
@@ -65,4 +67,9 @@ agitated(data, intersection_order = "degree")
 agitated(data, sort_sets = FALSE)
 
 agitated(data, title = "title", subtitle = "subtitle")
+}
+\references{
+UpSetR: an R package for the visualization of intersecting sets and their properties
+ Jake R Conway, Alexander Lex, Nils Gehlenborg
+ <doi:10.1093/bioinformatics/btx364>.
 }

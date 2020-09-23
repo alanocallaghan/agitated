@@ -1,12 +1,14 @@
 #' An alternative to the UpSetR package for upset plots.
 #' @param x A list or presence/absence matrix.
-#' @param nsets Maximum number of sets to be shown.
-#' @param exclusive Should the intersections shown be exclusive? If yes, each 
-#'  entry is shown only once in the top bar plot.
-#' @param intersection_order Sort by "frequency" or "degree"?
-#' @param sort_sets Controls whether the input sets are re-ordered based on 
-#' descending size.
-#' @param title,subtitle Plot title and subtitle.
+#' @param nsets Numeric scalar specifying the maximum number of sets to be shown.
+#' @param exclusive Logical scalar controlling whether the intersections should
+#'  be exclusive.
+#' @param intersection_order Character scalar controlling whether sorting of
+#' intersections is done by \code{"frequency"} (size of intersection) or
+#' \code{"degree"} (number of intersecting sets).
+#' @param sort_sets Logical scalar controlling whether the input sets are 
+#' re-ordered based on descending size.
+#' @param title,subtitle Character scalars specifying plot title and subtitle.
 #' @param return_plots Logical scalar specifying whether the ggplot2 objects
 #' should be returned directly (\code{TRUE}) or if 
 #' \code{\link[cowplot]{plot_grid}} should be called on these objects instead.
@@ -14,6 +16,10 @@
 #' ggplot2 objects.
 #' If \code{return_plots = TRUE},
 #' the function calls \code{\link[cowplot]{plot_grid}} on the plot objects.
+#' @references
+#'  UpSetR: an R package for the visualization of intersecting sets and their properties
+#'  Jake R Conway, Alexander Lex, Nils Gehlenborg
+#'  <doi:10.1093/bioinformatics/btx364>.
 #' @examples 
 #' 
 #' data <- agitated:::example_data()
