@@ -39,16 +39,10 @@ This is a basic example which shows you how to solve a common problem:
     library("agitated")
     ## exclusive intersections
     agitated(example_data())
-    #> Warning: `expand_scale()` is deprecated; use `expansion()` instead.
-
-    #> Warning: `expand_scale()` is deprecated; use `expansion()` instead.
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
     ## exclusive intersections, higher limit on number of sets (default is 20)
     agitated(example_data(), exclusive = FALSE, nsets = 30)
-    #> Warning: `expand_scale()` is deprecated; use `expansion()` instead.
-
-    #> Warning: `expand_scale()` is deprecated; use `expansion()` instead.
 
 <img src="man/figures/README-example2-1.png" width="100%" />
