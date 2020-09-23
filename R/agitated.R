@@ -7,7 +7,13 @@
 #' @param sort_sets Controls whether the input sets are re-ordered based on 
 #' descending size.
 #' @param title,subtitle Plot title and subtitle.
-#' @return Whatever cowplot::plot_grid returns
+#' @param return_plots Logical scalar specifying whether the ggplot2 objects
+#' should be returned directly (\code{TRUE}) or if 
+#' \code{\link[cowplot]{plot_grid}} should be called on these objects instead.
+#' @return If \code{return_plots = TRUE}, the function returns a list of three
+#' ggplot2 objects.
+#' If \code{return_plots = TRUE},
+#' the function calls \code{\link[cowplot]{plot_grid}} on the plot objects.
 #' @examples 
 #' 
 #' data <- agitated:::example_data()
@@ -30,7 +36,8 @@ agitated <- function(
     intersection_order = c("frequency", "degree"),
     sort_sets = TRUE,
     title = NULL,
-    subtitle = NULL
+    subtitle = NULL,
+    return_plots = FALSE
   ) {
 
   intersection_order <- match.arg(intersection_order)
@@ -51,36 +58,37 @@ agitated <- function(
 
   if (is.list(x)) {
     x[] <- lapply(x, unique)
-    n <- seq(length(x), 1)
-    mat <- list_to_matrix(x)
-  } else {
-    n <- seq(ncol(x), 1)
+    x <- list_to_matrix(x)
   }
-  names <- colnames(mat)
-  mat_original <- mat
+  n <- seq(ncol(x), 1)
+  names <- colnames(x)
+  mat_original <- x
   if (sort_sets) {
-    mat <- mat[, order(colSums(mat))]
+    x <- x[, order(colSums(x))]
+  }
+  if (any(grepl("\\s", names))) {
+    stop("Category names cannot contain spaces")
   }
   grids <- lapply(n,
     function(i) {
-      grid <- combn(colnames(mat), i)
+      grid <- combn(colnames(x), i)
       vapply(
         seq_len(ncol(grid)), 
         function(i) {
-          colnames(mat) %in% grid[, i, drop = TRUE]
+          colnames(x) %in% grid[, i, drop = TRUE]
         },
-        FUN.VALUE = logical(ncol(mat))
+        FUN.VALUE = logical(ncol(x))
       )
     }
   )
   grids <- do.call(cbind, grids)
-  rownames(grids) <- colnames(mat)
-  intersections <- numeric(ncol(grids))
+  rownames(grids) <- colnames(x)
+  intersections <- setNames(numeric(ncol(grids)), colnames(grids))
   for (i in seq_len(ncol(grids))) {
     column <- grids[, i]
-    intersects <- apply(mat[, column, drop = FALSE], 1, all)
+    intersects <- apply(x[, column, drop = FALSE], 1, all)
     if (exclusive) {
-      mat[intersects, column] <- FALSE
+      x[intersects, column] <- FALSE
     }
     intersections[[i]] <- sum(intersects)
   }
@@ -103,8 +111,6 @@ agitated <- function(
   mdf <- reshape2::melt(grids)
   mdf[["Var1"]] <- factor(mdf[["Var1"]], levels = names)
   mdf[["Var2"]] <- factor(mdf[["Var2"]])
-
-
   dots <- ggplot(mdf, 
       aes_string(x = "Var2", y = "Var1", color = "value")
     ) + 
@@ -142,7 +148,6 @@ agitated <- function(
     scale_x_discrete(position = "top") +
     scale_y_continuous(trans = "reverse", breaks = integer_breaks)
 
-
   topbar <- ggplot(mapping = aes(x = seq_along(intersections), y = intersections)) + 
     geom_bar(stat = "identity") +
     labs(x = NULL, y = "Set size", title = title, subtitle = subtitle) +
@@ -154,8 +159,11 @@ agitated <- function(
     )
 
   topcorner <- empty_plot()
+  if (return_plots) {
+    return(list(topbar = topbar, sidebar = sidebar, dots = dots))
+  }
   plot_grid(
-    topcorner, topbar, sidebar, dots, 
+    topcorner, topbar, sidebar, dots,
     nrow = 2, 
     align = "hv")
 }

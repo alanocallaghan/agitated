@@ -6,6 +6,7 @@
 #'                     expansion
 #'                     theme labs theme_void element_blank
 #' @importFrom cowplot plot_grid
+#' @importFrom stats setNames
 #' @importFrom utils combn
 NULL
 

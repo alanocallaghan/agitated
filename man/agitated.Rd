@@ -12,7 +12,8 @@ agitated(
   intersection_order = c("frequency", "degree"),
   sort_sets = TRUE,
   title = NULL,
-  subtitle = NULL
+  subtitle = NULL,
+  return_plots = FALSE
 )
 }
 \arguments{
@@ -29,9 +30,16 @@ entry is shown only once in the top bar plot.}
 descending size.}
 
 \item{title, subtitle}{Plot title and subtitle.}
+
+\item{return_plots}{Logical scalar specifying whether the ggplot2 objects
+should be returned directly (\code{TRUE}) or if 
+\code{\link[cowplot]{plot_grid}} should be called on these objects instead.}
 }
 \value{
-Whatever cowplot::plot_grid returns
+If \code{return_plots = TRUE}, the function returns a list of three
+ggplot2 objects.
+If \code{return_plots = TRUE},
+the function calls \code{\link[cowplot]{plot_grid}} on the plot objects.
 }
 \description{
 A lightweight (and reasonably efficient) alternative to the UpSetR 
