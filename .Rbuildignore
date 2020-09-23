@@ -7,3 +7,7 @@
 .github
 .*.tar.gz
 Makefile
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

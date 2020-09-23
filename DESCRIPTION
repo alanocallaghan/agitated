@@ -5,7 +5,7 @@ Authors@R: person(
     "Alan", "O'Callaghan",
     email = "alan.ocallaghan@outlook.com",
     role = c("aut", "cre"))
-Description: A lightweight (and reasonably efficient) alternative to the UpSetR
+Description: A lightweight and reasonably efficient alternative to the UpSetR
     package. These plots allow visualisation of an arbitrary number of set
     interactions; see Conway et al. (2017) <doi:10.1093/bioinformatics/btx364>.
 Depends: R (>= 3.5)
