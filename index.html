@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -67,35 +67,7 @@
 <!-- badges: start -->
 
 <p>An UpSetR clone to soothe my agitated heart</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of agitated from github with</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"Alanocallaghan/agitated"</span>)</span></code></pre></div>
-</div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(<span class="st">"here"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#&gt; here() starts at /home/alan/Documents/github/agitated</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(<span class="st">"devtools"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; Loading required package: usethis</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">load_all</span>(<span class="kw">here</span>())</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; Loading agitated</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; Attaching package: 'testthat'</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; The following object is masked from 'package:devtools':</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; </span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;     test_file</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="kw">library</span>(<span class="st">"agitated"</span>)</span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">## exclusive intersections</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="kw">agitated</span>(<span class="kw">example_data</span>())</span></code></pre></div>
-<p><img src="reference/figures/README-example-1.png" width="100%"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## exclusive intersections, higher limit on number of sets (default is 20)</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">agitated</span>(<span class="kw">example_data</span>(), <span class="dt">exclusive =</span> <span class="ot">FALSE</span>, <span class="dt">nsets =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p><img src="reference/figures/README-example2-1.png" width="100%"></p>
-</div>
+<p>You should probably use <a href="https://github.com/const-ae/ggupset">ggupset</a> instead, though.</p>
 </div>
   </div>
 
