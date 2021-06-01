@@ -13,36 +13,4 @@ status](https://github.com/Alanocallaghan/agitated/workflows/R-CMD-check/badge.s
 
 An UpSetR clone to soothe my agitated heart
 
-Installation
-------------
-
-You can install the released version of agitated from github with
-
-    devtools::install_github("Alanocallaghan/agitated")
-
-Example
--------
-
-This is a basic example which shows you how to solve a common problem:
-
-    library("here")
-    #> here() starts at /home/alan/Documents/github/agitated
-    library("devtools")
-    #> Loading required package: usethis
-    load_all(here())
-    #> Loading agitated
-    #> 
-    #> Attaching package: 'testthat'
-    #> The following object is masked from 'package:devtools':
-    #> 
-    #>     test_file
-    library("agitated")
-    ## exclusive intersections
-    agitated(example_data())
-
-<img src="man/figures/README-example-1.png" width="100%" />
-
-    ## exclusive intersections, higher limit on number of sets (default is 20)
-    agitated(example_data(), exclusive = FALSE, nsets = 30)
-
-<img src="man/figures/README-example2-1.png" width="100%" />
+You should probably use [ggupset](https://github.com/const-ae/ggupset) instead, though.
