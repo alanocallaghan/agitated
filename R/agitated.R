@@ -22,7 +22,7 @@
 #'  <doi:10.1093/bioinformatics/btx364>.
 #' @examples 
 #' 
-#' data <- agitated:::example_data()
+#' data <- example_data()
 #' agitated(data)
 #' 
 #' agitated(data, nsets = 10)
@@ -204,6 +204,9 @@ empty_plot <- function() {
   ggplot() + theme_void()
 }
 
+#' Example data for creating UpSet plots.
+#' 
+#' @return A list of class memberships.
 example_data <- function() {
   example <- lapply(1:10, function(i) {
     sample(letters, 10, replace=TRUE)
